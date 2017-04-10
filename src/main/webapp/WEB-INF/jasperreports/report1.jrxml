@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.1000000000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="projId" class="java.lang.String"/>
+	<field name="projNm" class="java.lang.String"/>
+	<field name="custId" class="java.lang.String"/>
+	<field name="startDate" class="java.sql.Date"/>
+	<field name="memo" class="java.lang.String"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="79">
+			<staticText>
+				<reportElement x="208" y="25" width="394" height="35"/>
+				<textElement lineSpacing="Single">
+					<font fontName="msjh" size="26" isBold="true"/>
+				</textElement>
+				<text><![CDATA[中文字體以及罕見字測試堃堃堃]]></text>
+			</staticText>
+			<textField pattern="yyyy/MM/dd">
+				<reportElement x="702" y="59" width="100" height="20"/>
+				<textElement lineSpacing="Single">
+					<font fontName="msjh"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="642" y="59" width="60" height="20"/>
+				<textElement textAlignment="Right" lineSpacing="Single">
+					<font fontName="msjh"/>
+				</textElement>
+				<text><![CDATA[製表日期：]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36">
+			<staticText>
+				<reportElement x="152" y="0" width="100" height="35"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top" lineSpacing="Single">
+					<font fontName="msjh" size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[序號]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="352" y="0" width="100" height="35"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top" lineSpacing="Single">
+					<font fontName="msjh" size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[名稱]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="452" y="0" width="100" height="35"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top" lineSpacing="Single">
+					<font fontName="msjh" size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[日期]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="552" y="0" width="100" height="35"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top" lineSpacing="Single">
+					<font fontName="msjh" size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[備註]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="252" y="0" width="100" height="35"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top" lineSpacing="Single">
+					<font fontName="msjh" size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[代號]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<textField>
+				<reportElement x="152" y="0" width="100" height="20"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font fontName="msjh"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{projId}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="252" y="0" width="100" height="20"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font fontName="msjh"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{custId}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="352" y="0" width="100" height="20"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font fontName="msjh"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{projNm}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="452" y="0" width="100" height="20"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font fontName="msjh"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{startDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="552" y="0" width="100" height="20"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font fontName="msjh"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{memo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="18"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="28">
+			<textField evaluationTime="Report">
+				<reportElement x="702" y="1" width="100" height="20"/>
+				<textElement lineSpacing="Single">
+					<font fontName="msjh"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="587" y="1" width="100" height="20"/>
+				<textElement textAlignment="Right" lineSpacing="Single">
+					<font fontName="msjh"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="687" y="1" width="15" height="20"/>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font fontName="msjh"/>
+				</textElement>
+				<text><![CDATA[/]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42"/>
+	</summary>
+</jasperReport>

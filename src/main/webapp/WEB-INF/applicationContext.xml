@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:c="http://www.springframework.org/schema/c" xmlns:cache="http://www.springframework.org/schema/cache"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:jms="http://www.springframework.org/schema/jms" xmlns:lang="http://www.springframework.org/schema/lang"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:oxm="http://www.springframework.org/schema/oxm"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+		http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms.xsd
+		http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+<!--
+	<import resource="jasper-views.xml" />
+ -->
+	<context:annotation-config />
+	<context:component-scan base-package="com.ifbk.project.*" />
+	<context:property-placeholder location="classpath*:properties/config.properties" />
+
+	<bean id="fileValidator" class="com.ifbk.project.utils.FileValidator" />
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${db.driver}" />
+		<property name="url" value="${db.url}" />
+		<property name="username" value="${db.user}" />
+		<property name="password" value="${db.pass}" />
+	</bean>
+
+	<bean id="insertService" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="target" ref="insertServiceTarget" />
+		<property name="interceptorNames">
+			<list>
+				<value>transactionInterceptor</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="queryService" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="target" ref="queryServiceTarget" />
+		<property name="interceptorNames">
+			<list>
+				<value>transactionInterceptor</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="modifyService" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="target" ref="modifyServiceTarget" />
+		<property name="interceptorNames">
+			<list>
+				<value>transactionInterceptor</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="deleteService" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="target" ref="deleteServiceTarget" />
+		<property name="interceptorNames">
+			<list>
+				<value>transactionInterceptor</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="transactionInterceptor"
+		class="org.springframework.transaction.interceptor.TransactionInterceptor">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="tx*">PROPAGATION_REQUIRED,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop>
+				<prop key="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</prop>
+				<prop key="hibernate.current_session_context_class">thread</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.format_sql">false</prop>
+			</props>
+		</property>
+		<property name="annotatedClasses">
+			<list>
+				<value>com.ifbk.project.model.Biln1</value>
+				<value>com.ifbk.project.model.MfPos</value>
+				<value>com.ifbk.project.model.TfPos</value>
+				<value>com.ifbk.project.model.Prdt</value>
+				<value>com.ifbk.project.model.Prdt1</value>
+				<value>com.ifbk.project.model.PrdtCus1</value>
+				<value>com.ifbk.project.model.CurId</value>
+				<value>com.ifbk.project.model.MfIj</value>
+				<value>com.ifbk.project.model.TfIj</value>
+				<value>com.ifbk.project.model.MyWh</value>
+				<value>com.ifbk.project.model.PrdtUt</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="projectDao" class="com.ifbk.project.dao.impl.ProjectDaoImpl">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+
+	<bean id="insertServiceTarget" class="com.ifbk.project.manager.impl.InsertServiceImpl">
+		<property name="projectDao" ref="projectDao" />
+	</bean>
+
+	<bean id="queryServiceTarget" class="com.ifbk.project.manager.impl.QueryServiceImpl">
+		<property name="projectDao" ref="projectDao" />
+	</bean>
+
+	<bean id="deleteServiceTarget" class="com.ifbk.project.manager.impl.DeleteServiceImpl">
+		<property name="projectDao" ref="projectDao" />
+	</bean>
+
+	<bean id="modifyServiceTarget" class="com.ifbk.project.manager.impl.ModifyServiceImpl">
+		<property name="projectDao" ref="projectDao" />
+	</bean>
+<!--  
+	<bean class="org.springframework.web.servlet.view.XmlViewResolver">
+		<property name="location" value="/WEB-INF/jasper-views.xml" />
+		<property name="order" value="0" />
+	</bean>
+-->
+	<mvc:view-controller path="/404" view-name="404" />
+	<mvc:view-controller path="/500" view-name="500" />
+	<mvc:view-controller path="/uncaughtException" view-name="uncaughtException" />
+	
+	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">  
+		<property name="exceptionMappings">  
+			<props>  
+				<prop key="java.lang.Throwable">error/uncaughtException</prop>
+			</props>  
+		</property>  
+	</bean>
+</beans>
